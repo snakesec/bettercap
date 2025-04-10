@@ -1,0 +1,21 @@
+package network
+
+import (
+	"strings"
+)
+
+var manuf = #MAP#
+
+func ManufLookup(mac string) string {
+	macHex := strings.ToUpper(strings.Replace(mac, ":", "", -1))
+	macLen := len(macHex)
+
+	for offset := macLen; offset >= 2; offset -= 2 {
+		part := macHex[0:offset]
+		if vendor, found := manuf[part]; found {
+			return vendor
+		}
+	}
+
+	return ""
+}
